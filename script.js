@@ -25,6 +25,24 @@ function init() {
     //console.log(val);
     btnMaker(val, addOutput);
   })
+  btnMaker('=', evalOutput);
+  btnMaker('C', clrOutput);
+ 
+  function evalOutput() {
+    output.style.border = 'black 1px solid';
+    console.log('=');
+    if (output.value === "") {
+      output.style.border = 'red 1px solid';
+    }
+    else {
+      output.value = eval(output.value);
+    }
+  }
+ 
+  function clrOutput() {
+    output.style.border = 'black 1px solid';
+    output.value = "";
+  }
  
   function btnMaker(txt, myFunction) {
     let btn = document.createElement('button');
@@ -40,6 +58,7 @@ function init() {
   }
  
   function addOutput(e) {
+    output.style.border = 'black 1px solid';
     console.log(e.target.val);
     let char = e.target.val;
     output.value += char;
