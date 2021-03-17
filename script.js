@@ -11,8 +11,8 @@ function init(){
   document.title = "JavaScript ES6 Calculator";
 
   // Added to fix bugs like entering 4.4.4 
-  let dec = false;
-  let eva = false;
+  let dec = false; // for decimal value
+  let eva = false; // for evaluation
 
   const container = document.createElement('div');
   container.classList.add('container');
@@ -38,18 +38,26 @@ function init(){
   btnMaker("=", evalOutput);
   btnMaker("C", clrOutput);
 
+  // Function color up the border of the text input in case of error (red color) or nrml case (black color)
+  function cOutput(v) {
+    output.style.border = v + ' 1px solid';
+    output.style.color = v;
+  }
+ 
   function evalOutput(){
-    output.style.border = 'black 1px solid';
-    if (output.value === ""){
-      output.style.border = 'red 1px solid';
+    cOutput('black');
+    console.log("eva =" + eva);
+    if (output.value === "" || eva){
+       cOutput('red');
     }
     else {
       output.value = eval(output.value);
     }
+    dec = output.value.includes('.'); // update the decimal boolean if the output cotain "."
   }
 
   function clrOutput(){
-    output.style.border =  'black 1px solid';
+    cOutput('black');
     output.value = "";
   }
 
@@ -66,18 +74,19 @@ function init(){
       main.appendChild(btn);
   }
   function addOutput(e){
-    output.style.border = 'black 1px solid';
+     cOutput('black');
     let char = e.target.val;
     if (char == "."){ // check if we have multiple "." in the expression
       if (dec){
         char = '';
-        output.style.border = 'red 1px solid';
+        cOutput('red');
       }
       else { // update dec with true once we face a "."
         dec = true;
       }
     }
-    eva = spec.includes(char);
+    eva = spec.includes(char); // check if the char is included in the spec "['*', '/', '+', '-']"
+    console.log ("eva in add output = " + eva);
     if (eva){
       dec = false; // return dec to false to be able to write other numbers with "."
     }
