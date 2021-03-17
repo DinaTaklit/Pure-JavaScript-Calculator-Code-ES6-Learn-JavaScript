@@ -1,10 +1,6 @@
 window.addEventListener('DOMContentLoaded', init);
 const opts = ['*', '/', '+', '-', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0', '.']; //all keys
 const spec = ['*', '/', '+', '-']; //special function keys
-function addOutput(e) {
-  console.log(e);
-}
- 
 function init() {
   document.title = "JavaScript Project";
   console.log('ready');
@@ -26,7 +22,7 @@ function init() {
   main.style.width = '100%';
   container.appendChild(main);
   opts.forEach(function (val) {
-    console.log(val);
+    //console.log(val);
     btnMaker(val, addOutput);
   })
  
@@ -41,5 +37,11 @@ function init() {
     btn.textContent = txt;
     btn.addEventListener('click', myFunction);
     main.appendChild(btn);
+  }
+ 
+  function addOutput(e) {
+    console.log(e.target.val);
+    let char = e.target.val;
+    output.value += char;
   }
 }
